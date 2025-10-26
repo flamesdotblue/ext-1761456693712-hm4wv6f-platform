@@ -4,21 +4,22 @@ import Services from './components/Services';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 
-export default function App() {
+function App() {
   return (
-    <div className="min-h-screen bg-neutral-50 text-neutral-900">
-      <header className="sticky top-0 z-40 w-full border-b border-neutral-200 bg-white/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="#" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md bg-amber-500" />
-            <span className="font-semibold tracking-tight">BuildRight Contractors</span>
+    <div className="min-h-screen bg-white text-slate-900">
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <a href="#home" className="inline-flex items-center gap-2 font-semibold text-slate-900">
+            <span className="text-amber-600">BuildPro</span> Contractors
           </a>
-          <nav className="hidden gap-6 text-sm font-medium md:flex">
-            <a href="#services" className="text-neutral-700 hover:text-neutral-900">Services</a>
-            <a href="#projects" className="text-neutral-700 hover:text-neutral-900">Projects</a>
-            <a href="#contact" className="text-neutral-700 hover:text-neutral-900">Contact</a>
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#services" className="hover:text-amber-600 transition">Services</a>
+            <a href="#projects" className="hover:text-amber-600 transition">Projects</a>
+            <a href="#contact" className="hover:text-amber-600 transition">Contact</a>
+            <a href="#contact" className="inline-flex items-center rounded-md bg-amber-600 px-4 py-2 text-white font-medium shadow hover:bg-amber-700 transition">
+              Get a Quote
+            </a>
           </nav>
-          <a href="#contact" className="ml-4 inline-flex items-center rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400 md:ml-8">Get a Quote</a>
         </div>
       </header>
 
@@ -29,16 +30,14 @@ export default function App() {
         <Contact />
       </main>
 
-      <footer className="mt-20 border-t border-neutral-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-neutral-600 md:flex-row">
-          <p>© {new Date().getFullYear()} BuildRight Contractors. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <a href="#services" className="hover:text-neutral-900">Services</a>
-            <a href="#projects" className="hover:text-neutral-900">Projects</a>
-            <a href="#contact" className="hover:text-neutral-900">Contact</a>
-          </div>
+      <footer className="border-t border-slate-200 mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm text-slate-500 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p>© {new Date().getFullYear()} BuildPro Contractors. All rights reserved.</p>
+          <p>Licensed • Insured • Bonded</p>
         </div>
       </footer>
     </div>
   );
 }
+
+export default App;

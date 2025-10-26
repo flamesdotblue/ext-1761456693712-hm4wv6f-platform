@@ -1,67 +1,83 @@
 import React, { useState } from 'react';
-import { Mail, Phone } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
-export default function Contact() {
-  const [status, setStatus] = useState('idle');
+const Contact = () => {
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [status, setStatus] = useState('');
 
-  async function onSubmit(e) {
+  function handleChange(e) {
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    setStatus('loading');
-    // Simulate request; replace with your endpoint as needed
-    await new Promise((r) => setTimeout(r, 1000));
-    setStatus('success');
-    e.currentTarget.reset();
+    try {
+      // Placeholder submission: mimic success
+      await new Promise((r) => setTimeout(r, 600));
+      setStatus('Thanks! We\'ll get back to you shortly.');
+      setForm({ name: '', email: '', phone: '', message: '' });
+    } catch (err) {
+      setStatus('Something went wrong. Please try again.');
+    }
   }
 
   return (
-    <section id="contact" className="border-t border-neutral-200 bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid gap-10 lg:grid-cols-2">
+    <section id="contact" className="py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-amber-700">Contact</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">Request a Free Quote</h2>
-            <p className="mt-3 max-w-xl text-neutral-700">Tell us about your project and timeline. We typically respond within one business day.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Get in touch</h2>
+            <p className="mt-3 text-slate-600">Tell us about your project and we\'ll contact you to schedule a free estimate.</p>
 
-            <div className="mt-8 space-y-3 text-sm text-neutral-800">
-              <p className="flex items-center gap-2"><Phone size={18} className="text-neutral-700" /> (555) 123-4567</p>
-              <p className="flex items-center gap-2"><Mail size={18} className="text-neutral-700" /> estimates@buildright.com</p>
-            </div>
-
-            <div className="mt-8 rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-sm text-neutral-700">
-              Fully licensed and insured. References available upon request.
+            <div className="mt-8 space-y-4 text-slate-700">
+              <div className="flex items-center gap-3"><Phone className="h-5 w-5 text-amber-600" /><a href="tel:+15551234567" className="hover:underline">(555) 123-4567</a></div>
+              <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-amber-600" /><a href="mailto:hello@buildpro.com" className="hover:underline">hello@buildpro.com</a></div>
+              <div className="flex items-center gap-3"><MapPin className="h-5 w-5 text-amber-600" /><span>123 Builder Ave, Suite 200, Your City</span></div>
             </div>
           </div>
 
-          <form onSubmit={onSubmit} className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="sm:col-span-1">
-                <label className="mb-1 block text-sm font-medium text-neutral-800" htmlFor="name">Full name</label>
-                <input required id="name" name="name" type="text" className="block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-500 outline-none ring-0 transition focus:border-neutral-900" placeholder="Jane Doe" />
+          <div>
+            <form onSubmit={handleSubmit} className="rounded-2xl border border-slate-200 p-6 bg-white shadow-sm">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="name" className="text-sm font-medium">Name</label>
+                  <input id="name" name="name" value={form.name} onChange={handleChange} required className="h-11 rounded-md border border-slate-300 px-3 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="email" className="text-sm font-medium">Email</label>
+                  <input id="email" name="email" type="email" value={form.email} onChange={handleChange} required className="h-11 rounded-md border border-slate-300 px-3 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+                </div>
               </div>
-              <div className="sm:col-span-1">
-                <label className="mb-1 block text-sm font-medium text-neutral-800" htmlFor="email">Email</label>
-                <input required id="email" name="email" type="email" className="block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-500 outline-none ring-0 transition focus:border-neutral-900" placeholder="jane@example.com" />
+              <div className="mt-4 grid sm:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="phone" className="text-sm font-medium">Phone</label>
+                  <input id="phone" name="phone" value={form.phone} onChange={handleChange} className="h-11 rounded-md border border-slate-300 px-3 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="service" className="text-sm font-medium">Service</label>
+                  <select id="service" name="service" defaultValue="General Inquiry" onChange={handleChange} className="h-11 rounded-md border border-slate-300 px-3 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <option>General Inquiry</option>
+                    <option>Home Renovation</option>
+                    <option>Additions & Framing</option>
+                    <option>Commercial Build-out</option>
+                    <option>Repairs & Maintenance</option>
+                  </select>
+                </div>
               </div>
-              <div className="sm:col-span-1">
-                <label className="mb-1 block text-sm font-medium text-neutral-800" htmlFor="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" className="block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-500 outline-none ring-0 transition focus:border-neutral-900" placeholder="(555) 987-6543" />
+              <div className="mt-4 flex flex-col gap-2">
+                <label htmlFor="message" className="text-sm font-medium">Message</label>
+                <textarea id="message" name="message" rows={5} value={form.message} onChange={handleChange} className="rounded-md border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500" />
               </div>
-              <div className="sm:col-span-2">
-                <label className="mb-1 block text-sm font-medium text-neutral-800" htmlFor="message">Project details</label>
-                <textarea required id="message" name="message" rows="5" className="block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-500 outline-none ring-0 transition focus:border-neutral-900" placeholder="Tell us about your renovation, addition, or build-out." />
-              </div>
-            </div>
-            <div className="mt-5 flex items-center gap-3">
-              <button type="submit" disabled={status==='loading'} className="inline-flex items-center rounded-md bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-60">
-                {status === 'loading' ? 'Sending…' : 'Send request'}
+              <button type="submit" className="mt-6 inline-flex items-center rounded-md bg-amber-600 px-5 py-3 text-white font-semibold shadow hover:bg-amber-700 transition">
+                Send Request
               </button>
-              {status === 'success' && (
-                <span className="text-sm text-emerald-700">Thanks! Well be in touch shortly.</span>
-              )}
-            </div>
-          </form>
+              {status && <p className="mt-3 text-sm text-emerald-700">{status}</p>}
+            </form>
+          </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Contact;
